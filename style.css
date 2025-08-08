@@ -1,0 +1,146 @@
+* {
+    font-family: 'Karla';
+    box-sizing: border-box;
+    color: #293264;
+}
+
+section.main {
+    position: relative;
+}
+
+.blob {
+    position: fixed;
+    z-index: -1;
+    height: 300px;
+    width: 300px;
+}
+
+.blob.top-right {
+    right: -100px;
+    top: -100px;
+}
+
+.blob.bot-left {
+    bottom: -150px;
+    left: -150px;
+}
+
+.starting-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.starting-screen > span {
+    font-family: 'Inter';
+    max-width: 300px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+select {
+    margin-left: 10px;
+    width: 150px;
+    border-radius: 8px;
+    border-color: #4D5B9E;
+    background-color: transparent;
+}
+
+option {
+    font-family: 'Inter';
+}
+
+.game-btn {
+    background-color: #4D5B9E;
+    color: #F5F7FB;
+    border-radius: 15px;
+    font-family: 'Inter';
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+}
+
+.game-btn.finish {
+    margin-top: 20px;
+}
+
+.game-btn.explanation {
+    border-radius: 10px;
+    width: 130px;
+    height: 42px;
+}
+
+.quizForm {
+    display: flex;
+    justify-content: center;
+}
+
+.question {
+    width: 80%;
+    border-bottom: 1px solid #DBDEF0;
+}
+
+.question input[type="radio"] {
+    visibility: hidden;
+}
+
+.question :checked+label{ 
+    background-color: #D6DBF5;
+    border: none;
+}
+
+.question :disabled+label {
+    color: #8f94af;
+    border: 2px solid #a1a9cc;
+}
+
+.question label {
+    text-align: center;
+    display: inline-block;
+    min-width: 50px;
+    padding: 10px;
+    margin: 15px;
+    background-color: white;
+    border: 2px solid #4D5B9E;
+    border-radius: 10px;
+}
+
+.question label.correct {
+    border: none;
+    background-color: #94D7A2;
+}
+
+.question label.wrong {
+    border: none;
+    background-color: #f7d9db;
+}
+
+.label {
+    margin: 20px;
+}
+
+.result-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-section p {
+    height: 50px;
+    line-height: 65px;
+    margin-right: 20px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-family: 'Inter';
+}
+
+.popup-content{margin:auto;background:#F5F7FB;width:50%;padding:5px;border:1px solid #d7d7d7}[role=tooltip].popup-content{max-width: 800px;box-shadow:0 0 5px rgba(0,0,0,.16);border-radius:5px}.popup-overlay{background:rgba(0,0,0,.5)}[data-popup=tooltip].popup-overlay{background:transparent}
