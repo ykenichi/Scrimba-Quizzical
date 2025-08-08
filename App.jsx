@@ -36,8 +36,8 @@ export default function App() {
     
     return (
         <>
-            <img className="blob top-right" src="./assets/blobs_yellow.svg" />
-            <img className="blob bot-left" src="./assets/blobs_blue.svg" />
+            <img className="blob top-right" src="/assets/blobs_yellow.svg" />
+            <img className="blob bot-left" src="/assets/blobs_blue.svg" />
             <section className="main">
                 {quizQuestions.length === 0 && 
                     <div className="starting-screen">
