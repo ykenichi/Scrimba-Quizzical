@@ -18,7 +18,7 @@ You are an assistant that receives a trivia question and answer from a user and 
 const anthropic = new Anthropic({
     // Make sure you set an environment variable in Scrimba 
     // for ANTHROPIC_API_KEY
-    apiKey: process.env.ANTHROPIC_API_KEY,
+    apiKey: process.env.REACT_APP_ANTHROPIC_API_KEY,
     dangerouslyAllowBrowser: true,
 })
 
