@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
 import he from "he"
 import clsx from "clsx"
-import Popup from 'reactjs-popup';
-import { getFeedbackFromClaude } from "./ai.js"
+import Popup from 'reactjs-popup'
 
 export default function Quizzical(props) {
     const [quizFinished, setQuizFinished] = useState(false)
