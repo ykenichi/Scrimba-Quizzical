@@ -39,17 +39,27 @@ export default function Quizzical(props) {
         setQuizFinished(true)
     }
     
-    function getFeedback(idx) {
-        console.log(feedbackArray[idx])
-        return
-    }
-    
     useEffect(() => {
-        let fbArr = []
-        for(const q of props.quizQuestions) {
-            fbArr.push(getFeedbackFromClaude(q.question, q.correct_answer))
+        async function fetchFeedback() {
+            let fbArr = []
+            if (!props.quizQuestions || props.quizQuestions.length === 0) {
+                return
+            }
+            const prompts = props.quizQuestions.map(q => ({
+                question: he.decode(q.question),
+                answer: he.decode(q.correct_answer)
+            }))
+            const response = await getFeedbackFromClaude(prompts)
+            fbArr = [...response.split('\n\n')]
+            if (fbArr.length < props.quizQuestions.length) {
+                const missingCount = props.quizQuestions.length - fbArr.length
+                for (let i = 0; i < missingCount; i++) {
+                    fbArr.push("No explanation available.")
+                }
+            }
+            setFeedbackArray(fbArr)
         }
-        setFeedbackArray(fbArr)
+        fetchFeedback()
     },[])
     
     return (
@@ -58,18 +68,24 @@ export default function Quizzical(props) {
                 {props.quizQuestions.map((question,questionIdx) => {
                     return (
                         <div className="question">
-                            <h1>{he.decode(question.question)}</h1>
+                            <h1>{quizFinished && <span>{choiceIndices[questionIdx]?.isCorrect ? '✅' : '❌'}</span>} #{questionIdx + 1} {he.decode(question.question)}</h1>
                             {quizFinished &&
                                 <Popup trigger={<button className="game-btn explanation" type="button">Explanation</button>} position="right">
-                                    <div>{feedbackArray.length ? feedbackArray[questionIdx] : 'Claude API might be down, feedback can\'t be retrieved'}</div>
+                                    <div>{feedbackArray[questionIdx]}</div>
                                 </Popup>
                             }
-                            {question.choices.map((c,choiceIdx) => 
-                                <>
-                                    <input disabled={quizFinished} id={`choice-${questionIdx}-${choiceIdx}`} type="radio" name={`question-${questionIdx}`} value={`${choiceIdx}|${c.isCorrect}`}/>
-                                    <label htmlFor={`choice-${questionIdx}-${choiceIdx}`} className={clsx('choice',{correct: quizFinished && c.isCorrect, wrong: quizFinished && !c.isCorrect && choiceIdx === choiceIndices[questionIdx]?.index})}>{he.decode(c.value)}</label>
-                                </>
-                            )}
+                            {question.choices.map((c,choiceIdx) => {
+                                const answerCorrect = quizFinished && c.isCorrect;
+                                const answerWrong = quizFinished && !c.isCorrect && choiceIdx === choiceIndices[questionIdx]?.index;
+
+                                return (
+                                    <>
+                                        <input disabled={quizFinished} id={`choice-${questionIdx}-${choiceIdx}`} type="radio" name={`question-${questionIdx}`} value={`${choiceIdx}|${c.isCorrect}`}/>
+                                        <label htmlFor={`choice-${questionIdx}-${choiceIdx}`} className={clsx('choice',{correct: answerCorrect, wrong: answerWrong})}>{he.decode(c.value)}</label>
+                                    </>
+                                )
+                            })
+                            }
                         </div>)
                     })
                 }

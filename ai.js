@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk"
 
 const SYSTEM_PROMPT = `
-You are an assistant that receives a trivia question and answer from a user and gives them information on why this answer is correct. You don't have to go into too much detail, only a brief 2-3 sentence summary or 100 words max is enough. You can explain a bit of background on the topic but try to keep the answer focused on how this answer works as a response to the given question. Use a third person perspective in your response.
+You are an assistant that receives a trivia question and answer from a user and gives them information on why this answer is correct. You don't have to go into too much detail, only a brief 2-3 sentence summary or 50 words max is enough. You can explain a bit of background on the topic but try to keep the answer focused on how this answer works as a response to the given question. Use a third person perspective in your response.
 `
 
 // 🚨👉 ALERT: Read message below! You've been warned! 👈🚨
@@ -22,15 +22,21 @@ const anthropic = new Anthropic({
     dangerouslyAllowBrowser: true,
 })
 
-export async function getFeedbackFromClaude(question, answer) {
+export async function getFeedbackFromClaude(prompts = []) {
+    if (!prompts || prompts.length === 0) {
+        return "Sorry, I couldn't fetch an explanation for this question at the moment."
+    }
+    const messages = prompts.map(prompt => ({
+        role: "user",
+        content: `I have this question: ${prompt.question}. The answer is ${prompt.answer}. Please explain why this answer is correct. Please include only the explanation in your response, no other text or formatting.`
+    }))
 
-    const msg = await anthropic.messages.create({
+    const response = await anthropic.messages.create({
         model: "claude-3-5-haiku-latest",
-        max_tokens: 1024,
+        max_tokens: 2048,
         system: SYSTEM_PROMPT,
-        messages: [
-            { role: "user", content: `I have this question: ${question}. The answer is ${answer}. Please explain why this answer is correct` },
-        ],
+        messages: [...messages]
     });
-    return msg.content[0].text
+    console.log("Claude response:", response.content[0].text);
+    return response.content[0].text || "Sorry, I couldn't fetch an explanation for this question at the moment.";
 }

@@ -44,15 +44,28 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+}
+
+.starting-screen > label {
+    margin-bottom: 20px;
+}
+
+form > label {
+    align-self: flex-start;
+    margin-bottom: 20px;
 }
 
 select {
+    font-size: 1.1rem;
     margin-left: 10px;
     width: 150px;
     border-radius: 8px;
     border-color: #4D5B9E;
     background-color: transparent;
+}
+
+select.question-count-select {
+    width: 75px;
 }
 
 option {
@@ -87,6 +100,11 @@ option {
 .question {
     width: 80%;
     border-bottom: 1px solid #DBDEF0;
+}
+
+.question h1 span {
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 .question input[type="radio"] {

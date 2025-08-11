@@ -8,6 +8,7 @@ export default function App() {
     
     let selectedDifficulty = 'any'
     let selectedCategory = 0
+    let selectedCount = 5
 
     useEffect(() => {
         fetch('https://opentdb.com/api_category.php')
@@ -16,10 +17,12 @@ export default function App() {
     },[])
      
     function startQuiz(formData) {
-        selectedDifficulty = formData.get('difficulty-select')
-        selectedCategory = formData.get('category-select')
-        
-        fetch(`https://opentdb.com/api.php?amount=5${selectedCategory !== 0 ? '&category=' + selectedCategory : ''}${selectedDifficulty !== 'any' ? '&difficulty=' + selectedDifficulty : ''}&type=multiple`)
+        console.log("Form data:", [...formData.entries()])
+        selectedDifficulty = formData.get('difficulty-select') || 'any'
+        selectedCategory = formData.get('category-select') || 0
+        selectedCount = formData.get('question-count-select') || 5
+
+        fetch(`https://opentdb.com/api.php?amount=${selectedCount}${selectedCategory !== 0 ? '&category=' + selectedCategory : ''}${selectedDifficulty !== 'any' ? '&difficulty=' + selectedDifficulty : ''}&type=multiple`)
             .then(response => response.json())
             .then(data => {
                 const questions = data.results.map(q => {
@@ -42,8 +45,18 @@ export default function App() {
                 {quizQuestions.length === 0 && 
                     <div className="starting-screen">
                         <h1>Quizzical</h1>
-                        <span>Answer 5 questions to see if you have what it takes to be a trivia master!</span>
+                        <span>Answer questions to see if you have what it takes to be a trivia master!</span>
                         <form action={startQuiz}>
+                            <label>
+                                Pick number of questions:
+                                <select defaultValue={selectedCount} className="question-count-select" name="question-count-select">
+                                    <option value={5}>5</option>
+                                    <option value={10}>10</option>
+                                    <option value={15}>15</option>
+                                    <option value={20}>20</option>
+                                    <option value={25}>25</option>
+                                </select> 
+                            </label>
                             <label>
                                 Pick a difficulty: 
                                 <select defaultValue={selectedDifficulty} name="difficulty-select">
