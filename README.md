@@ -5,7 +5,7 @@ npm install
 npm start
 ```
 
-If you want the anthropic AI part to work properly, you need to include your own API key in a .env file with the name REACT_APP_ANTHROPIC_API_KEY
+If you want the anthropic AI part to work properly, you need to include your own API key in a .env file with the name VITE_ANTHROPIC_API_KEY
 https://beta.pickaxeproject.com/post/how-to-get-your-claude-api-key-a-step-by-step-guide
 
 Head over to https://vitejs.dev/ to learn more about configuring vite

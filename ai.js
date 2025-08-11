@@ -18,14 +18,14 @@ You are an assistant that receives a trivia question and answer from a user and 
 const anthropic = new Anthropic({
     // Make sure you set an environment variable in Scrimba 
     // for ANTHROPIC_API_KEY
-    apiKey: process.env.REACT_APP_ANTHROPIC_API_KEY,
+    apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
     dangerouslyAllowBrowser: true,
 })
 
 export async function getFeedbackFromClaude(question, answer) {
 
     const msg = await anthropic.messages.create({
-        model: "claude-3-haiku-20240307",
+        model: "claude-3-5-haiku-latest",
         max_tokens: 1024,
         system: SYSTEM_PROMPT,
         messages: [
