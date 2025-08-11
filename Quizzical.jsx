@@ -58,7 +58,7 @@ export default function Quizzical(props) {
             })
             const data = await response.json()
             fbArr = data && data.response ? [...data.response.split('\n\n')] : []
-            console.log("Claude response:", data.response)
+            //console.log("Claude response:", data.response)
             //const response = await getFeedbackFromClaude(prompts)
 
             if (fbArr.length < props.quizQuestions.length) {
