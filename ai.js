@@ -19,7 +19,7 @@ const anthropic = new Anthropic({
     // Make sure you set an environment variable in Scrimba 
     // for ANTHROPIC_API_KEY
     apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
-    dangerouslyAllowBrowser: true,
+    dangerouslyAllowBrowser: true
 })
 
 export async function getFeedbackFromClaude(prompts = []) {

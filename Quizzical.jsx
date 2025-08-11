@@ -49,8 +49,18 @@ export default function Quizzical(props) {
                 question: he.decode(q.question),
                 answer: he.decode(q.correct_answer)
             }))
-            const response = await getFeedbackFromClaude(prompts)
-            fbArr = [...response.split('\n\n')]
+            const response = await fetch('/.netlify/functions/getClaudeFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({prompts})
+            })
+            const data = await response.json()
+            fbArr = data && data.response ? [...data.response.split('\n\n')] : []
+            console.log("Claude response:", data.response)
+            //const response = await getFeedbackFromClaude(prompts)
+
             if (fbArr.length < props.quizQuestions.length) {
                 const missingCount = props.quizQuestions.length - fbArr.length
                 for (let i = 0; i < missingCount; i++) {

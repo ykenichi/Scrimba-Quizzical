@@ -2,11 +2,13 @@
 Install the dependencies and run the project
 ```
 npm install
-npm start
+npm run dev
 ```
 
 If you want the anthropic AI part to work properly, you need to include your own API key in a .env file with the name VITE_ANTHROPIC_API_KEY
 https://beta.pickaxeproject.com/post/how-to-get-your-claude-api-key-a-step-by-step-guide
+
+Project currently needs to run with Netlify in order to get the AI functionality to work
 
 Head over to https://vitejs.dev/ to learn more about configuring vite
 ## About Scrimba
