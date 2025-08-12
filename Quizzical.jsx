@@ -6,7 +6,7 @@ import Popup from 'reactjs-popup'
 export default function Quizzical(props) {
     const [quizFinished, setQuizFinished] = useState(false)
     const [choiceIndices, setChoiceIndices] = useState([])
-    const [feedbackArray, setFeedbackArray] = useState([])
+    const [feedbackArray, setFeedbackArray] = useState(Array(props.quizQuestions.length).fill('Loading AI feedback, please wait.'))
     
     const totalQuestions = props.quizQuestions.length
     const correctQuestions = choiceIndices.filter(c => c.isCorrect).length
