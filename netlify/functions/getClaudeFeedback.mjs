@@ -3,7 +3,7 @@ import axios from "axios";
 import Anthropic from "@anthropic-ai/sdk";
 
 const SYSTEM_PROMPT = `
-You are an assistant that receives a trivia question and answer from a user and gives them information on why this answer is correct. You don't have to go into too much detail, only a brief 2-3 sentence summary or 50 words max is enough. You can explain a bit of background on the topic but try to keep the answer focused on how this answer works as a response to the given question. Use a third person perspective in your response.
+You are an assistant that receives a trivia question and answer from a user and gives them information on why this answer is correct. You don't have to go into too much detail, keep your response to 500 characters max. You can explain a bit of background on the topic but try to keep the answer focused on how this answer works as a response to the given question. Use a third person perspective in your response.
 `
 
 const anthropic = new Anthropic({
